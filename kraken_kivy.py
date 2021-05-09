@@ -52,10 +52,11 @@ if __name__ == '__main__':
             cripto_input = [cripto_input if cripto_input != "" else cripto_list][0]
     
             sc_center(main_size)
-            self.p1 = mp.Process(target=kr_dat.main, \
+            p1 = mp.Process(target=kr_dat.main, \
                                  args=(cripto_input, path, ""))
-            self.p1.start()
-                
+            p1.start()
+            p1.join(0)
+          
     class MainWindow(Screen):
         def __init__(self, **kwargs):
             super(MainWindow, self).__init__(**kwargs)
@@ -199,9 +200,7 @@ if __name__ == '__main__':
             win.top += variation_y
             win.size = Window_size
     
-    path = sys.executable
-    path_index = path[::-1].index("\\")
-    path = path[:-path_index]
+    path = os.path.dirname(os.path.abspath(__file__))
 
     data_path = path+"\data"
     cripto_path = path+"\cripto_list.txt"
@@ -224,3 +223,4 @@ if __name__ == '__main__':
     kr_dat.main("BTC/EUR", path, "STOP")
     sm = ScreenManager(transition=NoTransition())
     Main().run()
+

@@ -148,7 +148,6 @@ def main(par: str, path: str, exit_key: str):
     refresh_time = 2
 
     while True:
-        percentage = 0
         time_left = len(pair)*len(times)*refresh_time
         
         for i in range(len(pair)):
@@ -160,21 +159,7 @@ def main(par: str, path: str, exit_key: str):
                 except TypeError:
                     rsi_a[pair[i]][k] = 0
 
-                percentage += 1
-                
-                for _ in range(refresh_time):
-                    time_left -= 1
-                    
-                    counter = f"Queda: {(percentage)*100/(len(times)*len(pair)):.2f}% " + \
-                              f"--- {time_left}".format()
-                    
-                    sys.stdout.write("\r"+counter+"s")
-
         df = pd.DataFrame(rsi_a, index = head)
-        sys.stdout.write("\r")
-        clear = lambda: os.system("cls")
-        clear()
-        
         filename = '\data\\rsi_data.xlsx' 
         filename2 = '\data\\rsi_placeholder.xlsx' 
 
